@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/Klass.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/Klass.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module snapon/Klass */
+
+var util = require('./util');
+
+function inherit () {
+    
+    if( arguments.length &lt; 2 ) return;
+
+    var target = arguments[ 0 ];
+    
+    var i, name, parent;
+    
+    for ( i = 1; i &lt; arguments.length; i++ ) {
+    
+        parent = arguments[ i ];
+    
+        // If parent is a function, copy
+        // from parent.prototype into the target.prototype:
+        if( typeof parent === 'function' ) {
+            
+            for ( name in parent.prototype ) {
+
+                if (!parent.prototype.hasOwnProperty(name)) continue;
+
+                if ( typeof parent.prototype[ name ] === 'object' ) {
+
+                    target.prototype[ name ] = 
+                        util.copyProperties( parent.prototype[ name ], {}, true );
+                }
+                else {
+
+                    target.prototype[ name ] = parent.prototype[ name ];
+                }
+
+            }
+
+            // copy props from parent into the target
+            // ( ie static vars and methods )
+            for ( name in parent ) {
+
+                if (!parent.hasOwnProperty(name)) continue;
+
+                target[ name ] = parent[ name ];
+            }
+            
+        }
+        //if it is an object, apply to the prototype
+        else if( typeof parent === 'object' ) {
+            for ( name in parent ) {
+
+                if (!parent.hasOwnProperty(name)) continue;
+
+                target.prototype[ name ] = util.copyProperties( parent[ name ], {}, true );
+            }
+        }
+        
+    }
+
+}
+
+/**
+ * @class Klass
+ * @constructor
+ */
+function Klass () {}
+
+Klass.prototype.super = {};
+
+Klass.isTypeOf = function () {
+
+    if ( arguments.length == 1 ) {
+        return _typeof.apply(this.prototype, arguments);
+    }
+    else if ( arguments.length == 2 ) {
+        if ( typeof arguments[0] !== 'object' || typeof arguments[1] !== 'string' ) {
+            throw 'incorrect argument type';
+        }
+        var obj = Array.prototype.shift.apply( arguments );
+        if ( !obj ) return false;
+        return _typeof.apply(obj, arguments);
+    }
+
+};
+
+Klass.prototype.isTypeOf = function ( klass ) {
+    return _typeof.apply(this, klass);
+};
+
+Klass.extend = function () {
+
+    var name = null;
+    var func = null;
+    var opts = {
+        final : false
+    };
+
+    var arg = Array.prototype.shift.apply( arguments );
+    if ( arg === undefined ) throw new Error('incorrect arguments');
+
+    for ( var i = 0; arg !== undefined; i++ ) {
+
+        var type = typeof arg;
+
+        if ( i &lt; 1 &amp;&amp; type === 'function' ) {
+            func = arg;
+            name = func.prototype.constructor.name;
+            if ( name.length &lt; 1 ) throw new Error('function must have constructor name');
+        }
+        else if ( i &lt; 1 &amp;&amp; type === 'string' ) {
+            name = arg;
+        }
+
+        if ( i > 0 &amp;&amp; type === 'function' ) {
+            func = new Function(
+                "fnc", "return function " + name + "(){ fnc.apply(this, arguments) };"
+            )(  arg );
+        }
+        else if ( i > 0 &amp;&amp; type === 'object' ) {
+            opts = util.copyProperties(opts, arg);
+        }
+
+        arg = Array.prototype.shift.apply( arguments );
+
+    }
+
+    if ( func === null ) {
+        throw new Error('Arguments to extend missing constructor function.');
+    }
+
+    inherit( func, this );
+    func.prototype.super[ this.prototype.constructor.name ] = this.prototype;
+
+    if ( opts.final ) {
+        delete func.extend;
+    }
+
+    return func;
+};
+
+module.exports = Klass;
+
+function _typeof ( klass ) {
+    return this.constructor.name === klass ||
+        this.super.hasOwnProperty( klass );
+}
+
+function _shift ( args ) {
+    var item = Array.prototype.shift.apply( arguments );
+    return ( item !== undefined )? item : null;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-snapon.html">snapon</a></li><li><a href="module-snapon_Klass.html">snapon/Klass</a></li><li><a href="module-snapon_util.html">snapon/util</a></li></ul><h3>Classes</h3><ul><li><a href="module-snapon_Klass-Klass.html">Klass</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Sun Feb 22 2015 11:45:03 GMT+1300 (New Zealand Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
