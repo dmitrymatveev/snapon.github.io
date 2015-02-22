@@ -50,6 +50,10 @@
 
 
 
+<div class="description">
+    Flattened, prototype copy based approach to implementing inheritance in JavaScript.Instead of extending the prototype of the parent this Klass copies properties andmethods instead creating a flattened inheritance model which is not a chain anymore.Initial idea and code that I later re-factored and added to was shamelesslystolen ( with a permission I mind you :) ) from my work colleague<a href="https://github.com/lee-nk">Lee Grey</a>.
+</div>
+
 
 
 
@@ -91,7 +95,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line61">line 61</a>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -131,7 +135,851 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
 
+        
+            
+<h4 class="name" id="super"><span class="type-signature"></span>super<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    Holds prototypes of all parents as a result of calling Klass.extend and Klass.implement.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".assume"><span class="type-signature">(static) </span>assume<span class="signature">(tobeAnObject)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Inherits properties of the provided object into own prototype.This function differs from Klass.extend and Klass.implement such that the providedparent object does not leave a record in this type's super hash, and serves as a quickway to copy over some properties from object literals.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tobeAnObject</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Object instance to copy properties from.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".extend"><span class="type-signature">(static) </span>extend<span class="signature">(constructorFunction, options)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Extends provided constructor function with own static and prototype properties.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>constructorFunction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Child to be extended with this type.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Control what ends up being extended into child.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.final</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Removes 'extend' function from resulting child type.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    constructorFunction Modified child type.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".implement"><span class="type-signature">(static) </span>implement<span class="signature">(constructorFunction)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Similar to Klass.extend but works the other way around. Implements static andprototype properties found in provided constructor function into own type.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>constructorFunction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Parent type to be implemented.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isTypeof"><span class="type-signature">(static) </span>isTypeof<span class="signature">(klassType)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns true if specified string matches any of the parent classes.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>klassType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Constructor function</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Klass.isTypeof(Klass);</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isInstanceOf"><span class="type-signature"></span>isInstanceOf<span class="signature">(klassType)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns true if specified string matches any of the parent classes.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>klassType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Constructor function</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_Klass.js.html">lib/Klass.js</a>, <a href="lib_Klass.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
     
 
     
@@ -153,7 +1001,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Sun Feb 22 2015 11:45:03 GMT+1300 (New Zealand Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Sun Feb 22 2015 16:31:08 GMT+1300 (New Zealand Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
